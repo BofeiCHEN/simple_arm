@@ -10,6 +10,9 @@ class LookAway(object):
     def __init__(self):
         rospy.init_node('look_away')
 
+        rospy.wait_for_message('/simple_arm/joint_states', JointState)
+        rospy.wait_for_message('/rgb_camera/image_raw', Image)
+
         self.sub1 = rospy.Subscriber('/simple_arm/joint_states', 
                                      JointState, self.joint_states_callback)
         self.sub2 = rospy.Subscriber("rgb_camera/image_raw", 
